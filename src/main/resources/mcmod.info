@@ -1,0 +1,17 @@
+[
+  {
+	"modid": "mcda",
+	"name": "MC Discord Activity",
+	"version": "23.09.02",
+	"credits": "Hummel009",
+	"authorList": [
+	  "Hummel009"
+	],
+	"description": "Hummel009's Discord Activity Mod: LOTR, GOT support.",
+	"url": "",
+	"updateUrl": "",
+	"parent": "",
+	"dependencies": [],
+	"screenshots": []
+  }
+]
