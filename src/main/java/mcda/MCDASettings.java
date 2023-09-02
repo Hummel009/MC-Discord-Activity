@@ -6,6 +6,7 @@ import java.util.Properties;
 
 public class MCDASettings {
 	public static String discordAppId = "1147449520565801001";
+	public static String mainLabel = "UN-ION";
 	public static String mainLogo = "icon_arabic";
 	public static String mainLogoMin = "icon";
 	public static String category = "Minecraft";
@@ -20,6 +21,7 @@ public class MCDASettings {
 			mainLogoMin = properties.getProperty("main_logo_min", mainLogoMin);
 			category = properties.getProperty("category", category);
 			window = properties.getProperty("window", window);
+			mainLabel = properties.getProperty("mainLabel", mainLabel);
 		}
 	}
 

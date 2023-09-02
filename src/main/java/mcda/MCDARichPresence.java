@@ -28,7 +28,7 @@ public class MCDARichPresence {
 			presence.startTimestamp = System.currentTimeMillis() / 1000L;
 			presence.largeImageKey = MCDASettings.mainLogo;
 			presence.smallImageKey = MCDASettings.mainLogoMin;
-			presence.largeImageText = "UN-ION";
+			presence.largeImageText = MCDASettings.mainLabel;
 			presence.smallImageText = MCDASettings.category;
 			rpc.Discord_UpdatePresence(presence);
 			state = MCDAClientState.LOADING;
