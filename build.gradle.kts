@@ -11,6 +11,8 @@ plugins {
 group = "hummel"
 version = "v" + LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"))
 
+val embed: Configuration by configurations.creating
+
 dependencies {
 	embed("net.java.dev.jna:jna:5.13.0")
 	implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
