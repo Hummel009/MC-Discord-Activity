@@ -9,17 +9,17 @@ import java.util.Objects;
 
 public class DiscordUser extends Structure {
 	private static final List<String> FIELD_ORDER = Collections.unmodifiableList(Arrays.asList("userId", "username", "discriminator", "avatar"));
-	public String userId;
-	public String username;
-	public String discriminator;
-	public String avatar;
-
-	public DiscordUser(String encoding) {
-		setStringEncoding(encoding);
-	}
+	private String userId;
+	private String username;
+	private String discriminator;
+	private String avatar;
 
 	public DiscordUser() {
 		this("UTF-8");
+	}
+
+	private DiscordUser(String encoding) {
+		setStringEncoding(encoding);
 	}
 
 	@Override
@@ -35,13 +35,13 @@ public class DiscordUser extends Structure {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(userId, username, discriminator, avatar);
+	protected List<String> getFieldOrder() {
+		return FIELD_ORDER;
 	}
 
 	@Override
-	protected List<String> getFieldOrder() {
-		return FIELD_ORDER;
+	public int hashCode() {
+		return Objects.hash(userId, username, discriminator, avatar);
 	}
 }
 

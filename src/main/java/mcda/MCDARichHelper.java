@@ -6,7 +6,15 @@ import net.minecraft.client.Minecraft;
 import java.util.Iterator;
 
 public class MCDARichHelper {
-	public static float maxPercents;
+	private static float maxPercents;
+
+	public static void mainMenu(MCDARichPresence presence) {
+		mainMenu(presence, Minecraft.getMinecraft().getSession().getUsername());
+	}
+
+	private static void mainMenu(MCDARichPresence presence, String playerName) {
+		presence.update(p -> p.setState(playerName + " -> " + "Главное меню"));
+	}
 
 	public static void onRichUpdate(MCDARichPresence presence) {
 		if (presence.getState() == MCDAClientState.LOADING) {
@@ -14,7 +22,13 @@ public class MCDARichHelper {
 		}
 	}
 
-	public static void updateLoading(MCDARichPresence presence) {
+	public static void onWorldJoin(MCDARichPresence presence, String serverName, String playerName, int dimension) {
+		String worldName = MCDASettings.properties.getProperty("dimension_name." + dimension, "Неизвестный мир");
+		presence.update(p -> p.setState(playerName + " -> " + worldName));
+	}
+
+	@SuppressWarnings("deprecation")
+	private static void updateLoading(MCDARichPresence presence) {
 		try {
 			ProgressManager.ProgressBar progressBar;
 			Iterator<ProgressManager.ProgressBar> pit = ProgressManager.barIterator();
@@ -34,29 +48,12 @@ public class MCDARichHelper {
 					if (percents > maxPercents) {
 						maxPercents = percents;
 					}
-					p.state = "\u0417\u0430\u043f\u0443\u0441\u043a \u0438\u0433\u0440\u044b " + String.format("%2.2f", maxPercents * 100.0f) + "%";
+					p.setState("Запуск игры " + String.format("%2.2f", maxPercents * 100.0f) + '%');
 				});
 			}
 		} catch (Exception e) {
-			MCDAMod.getLogger().catching(e);
+			MCDAMod.logger.catching(e);
 		}
-	}
-
-	public static void mainMenu(MCDARichPresence presence) {
-		mainMenu(presence, Minecraft.getMinecraft().getSession().getUsername());
-	}
-
-	public static void mainMenu(MCDARichPresence presence, String playerName) {
-		presence.update(p -> {
-			p.state = playerName + " -> " + "\u0413\u043b\u0430\u0432\u043d\u043e\u0435 \u043c\u0435\u043d\u044e";
-		});
-	}
-
-	public static void onWorldJoin(MCDARichPresence presence, String serverName, String playerName, int dimension) {
-		String worldName = MCDASettings.getProperties().getProperty("dimension_name." + dimension, "\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u044b\u0439 \u043c\u0438\u0440");
-		presence.update(p -> {
-			p.state = playerName + " -> " + worldName;
-		});
 	}
 }
 

@@ -10,12 +10,12 @@ import java.util.Objects;
 
 public class DiscordEventHandlers extends Structure {
 	private static final List<String> FIELD_ORDER = Collections.unmodifiableList(Arrays.asList("ready", "disconnected", "errored", "joinGame", "spectateGame", "joinRequest"));
-	public OnReady ready;
-	public OnStatus disconnected;
-	public OnStatus errored;
-	public OnGameUpdate joinGame;
-	public OnGameUpdate spectateGame;
-	public OnJoinRequest joinRequest;
+	private OnStatus disconnected;
+	private OnStatus errored;
+	private OnGameUpdate joinGame;
+	private OnGameUpdate spectateGame;
+	private OnJoinRequest joinRequest;
+	private OnReady ready;
 
 	@Override
 	public boolean equals(Object o) {
@@ -30,34 +30,36 @@ public class DiscordEventHandlers extends Structure {
 	}
 
 	@Override
-	public int hashCode() {
-		return Objects.hash(ready, disconnected, errored, joinGame, spectateGame, joinRequest);
-	}
-
-	@Override
 	protected List<String> getFieldOrder() {
 		return FIELD_ORDER;
 	}
 
-	public interface OnJoinRequest
-			extends Callback {
-		void accept(DiscordUser var1);
+	public OnReady getReady() {
+		return ready;
 	}
 
-	public interface OnGameUpdate
-			extends Callback {
+	public void setReady(OnReady ready) {
+		this.ready = ready;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(ready, disconnected, errored, joinGame, spectateGame, joinRequest);
+	}
+
+	public interface OnGameUpdate extends Callback {
 		void accept(String var1);
 	}
 
-	public interface OnStatus
-			extends Callback {
-		void accept(int var1, String var2);
-	}
-
-	public interface OnReady
-			extends Callback {
+	public interface OnJoinRequest extends Callback {
 		void accept(DiscordUser var1);
 	}
 
-}
+	public interface OnReady extends Callback {
+		void accept(DiscordUser var1);
+	}
 
+	public interface OnStatus extends Callback {
+		void accept(int var1, String var2);
+	}
+}

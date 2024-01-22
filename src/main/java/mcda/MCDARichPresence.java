@@ -9,53 +9,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 public class MCDARichPresence {
-	public static MCDARichPresence instance = new MCDARichPresence();
-	public DiscordRPC rpc = DiscordRPC.INSTANCE;
-	public MCDAClientState state = MCDAClientState.DISABLED;
-	public DiscordRichPresence presence = new DiscordRichPresence();
+	public static final MCDARichPresence INSTANCE = new MCDARichPresence();
 
-	public static MCDARichPresence getInstance() {
-		return instance;
-	}
+	private final DiscordRPC rpc = DiscordRPC.INSTANCE;
+	private final DiscordRichPresence presence = new DiscordRichPresence();
+	private MCDAClientState state = MCDAClientState.DISABLED;
 
-	public void init() {
-		try {
-			MCDAMod.getLogger().info("Creating Discord Rich Presence");
-			String applicationId = MCDASettings.discordAppId;
-			DiscordEventHandlers handlers = new DiscordEventHandlers();
-			handlers.ready = user -> MCDAMod.getLogger().info("Rich ready!");
-			rpc.Discord_Initialize(applicationId, handlers, true, null);
-			presence.startTimestamp = System.currentTimeMillis() / 1000L;
-			presence.largeImageKey = MCDASettings.mainLogo;
-			presence.smallImageKey = MCDASettings.mainLogoMin;
-			presence.largeImageText = MCDASettings.mainLabel;
-			presence.smallImageText = MCDASettings.category;
-			rpc.Discord_UpdatePresence(presence);
-			state = MCDAClientState.LOADING;
-			MCDAMod.getLogger().info("Discord Rich Presence thread started");
-			ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
-			executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
-			executor.scheduleAtFixedRate(() -> {
-				try {
-					MCDARichHelper.onRichUpdate(this);
-				} catch (Exception e) {
-					MCDAMod.getLogger().catching(e);
-				}
-				if (state != MCDAClientState.DISABLED) {
-					rpc.Discord_RunCallbacks();
-				}
-			}, 0L, 2L, TimeUnit.SECONDS);
-			Runtime.getRuntime().addShutdownHook(new Thread("Discord Rich Presence Shutdown") {
-
-				@Override
-				public void run() {
-					executor.shutdown();
-					disable();
-				}
-			});
-		} catch (Exception e) {
-			MCDAMod.getLogger().catching(e);
-		}
+	public DiscordRPC getRpc() {
+		return rpc;
 	}
 
 	public MCDAClientState getState() {
@@ -69,6 +30,39 @@ public class MCDARichPresence {
 		this.state = state;
 	}
 
+	public void init() {
+		try {
+			MCDAMod.logger.info("Creating Discord Rich Presence");
+			String applicationId = MCDASettings.discordAppId;
+			DiscordEventHandlers handlers = new DiscordEventHandlers();
+			handlers.setReady(user -> MCDAMod.logger.info("Rich ready!"));
+			rpc.Discord_Initialize(applicationId, handlers, true, null);
+			presence.setStartTimestamp(System.currentTimeMillis() / 1000L);
+			presence.setLargeImageKey(MCDASettings.mainLogo);
+			presence.setSmallImageKey(MCDASettings.mainLogoMin);
+			presence.setLargeImageText(MCDASettings.mainLabel);
+			presence.setSmallImageText(MCDASettings.category);
+			rpc.Discord_UpdatePresence(presence);
+			state = MCDAClientState.LOADING;
+			MCDAMod.logger.info("Discord Rich Presence thread started");
+			ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+			executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
+			executor.scheduleAtFixedRate(() -> {
+				try {
+					MCDARichHelper.onRichUpdate(this);
+				} catch (Exception e) {
+					MCDAMod.logger.catching(e);
+				}
+				if (state != MCDAClientState.DISABLED) {
+					rpc.Discord_RunCallbacks();
+				}
+			}, 0L, 2L, TimeUnit.SECONDS);
+			Runtime.getRuntime().addShutdownHook(new MCDAThread(this, executor));
+		} catch (Exception e) {
+			MCDAMod.logger.catching(e);
+		}
+	}
+
 	public void update(Consumer<DiscordRichPresence> consumer) {
 		if (state == MCDAClientState.DISABLED) {
 			return;
@@ -80,17 +74,8 @@ public class MCDARichPresence {
 		try {
 			rpc.Discord_UpdatePresence(presence);
 		} catch (Exception ex) {
-			MCDAMod.getLogger().catching(ex);
+			MCDAMod.logger.catching(ex);
 		}
-	}
-
-	public void disable() {
-		if (state == MCDAClientState.DISABLED) {
-			return;
-		}
-		rpc.Discord_ClearPresence();
-		rpc.Discord_Shutdown();
-		state = MCDAClientState.DISABLED;
 	}
 
 }

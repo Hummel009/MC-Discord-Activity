@@ -9,23 +9,20 @@ import org.apache.logging.log4j.Logger;
 
 @Mod(modid = MCDAMod.MODID, name = MCDAMod.MODNAME, version = MCDAMod.VERSION, acceptableRemoteVersions = "*")
 public class MCDAMod {
-	public static final String MODID = "mcda";
-	public static final String MODNAME = "MC Discord Activity";
-	public static final String VERSION = "23.09.02";
 	@Mod.Instance
 	public static MCDAMod instance;
 	public static Logger logger;
+
+	protected static final String MODID = "mcda";
+	protected static final String MODNAME = "MC Discord Activity";
+	protected static final String VERSION = "23.09.02";
 
 	public MCDAMod() {
 		logger = FMLLog.getLogger();
 		MCDASettings.load();
 		MCDAClientWindowHelper.setWindowIcon();
 		MCDAClientWindowHelper.setWindowTitle(MCDASettings.category);
-		MCDARichPresence.getInstance().init();
-	}
-
-	public static Logger getLogger() {
-		return logger;
+		MCDARichPresence.INSTANCE.init();
 	}
 
 	@Mod.EventHandler

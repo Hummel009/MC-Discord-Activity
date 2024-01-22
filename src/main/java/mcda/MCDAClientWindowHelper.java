@@ -12,43 +12,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 public class MCDAClientWindowHelper {
-	public static void setWindowIcon() {
-		Util.EnumOS os = Util.getOSType();
-		if (os != Util.EnumOS.OSX) {
-			InputStream inputstream = null;
-			InputStream inputstream1 = null;
-			try {
-				inputstream = MCDAMod.class.getResourceAsStream("/assets/mcda/icons/icon_16x16.png");
-				inputstream1 = MCDAMod.class.getResourceAsStream("/assets/mcda/icons/icon_32x32.png");
-				if (inputstream != null && inputstream1 != null)
-					Display.setIcon(new ByteBuffer[]{readImageToBuffer(inputstream), readImageToBuffer(inputstream1)});
-			} catch (Exception ioexception) {
-				MCDAMod.getLogger().error("Couldn't set icon", ioexception);
-			} finally {
-				IOUtils.closeQuietly(inputstream);
-				IOUtils.closeQuietly(inputstream1);
-			}
-			MCDAMod.getLogger().info("Window icon changed");
-		}
-	}
-
-	public static void setWindowTitle(String title) {
-		Runnable r = () -> {
-			try {
-				Display.setTitle("Hummel009's Minecraft 1.7.10");
-				MCDAMod.getLogger().info("Window title changed");
-			} catch (Exception e) {
-				MCDAMod.getLogger().catching(e);
-			}
-		};
-		if (Minecraft.getMinecraft().func_152345_ab()) {
-			r.run();
-		} else {
-			Minecraft.getMinecraft().func_152344_a(r);
-		}
-	}
-
-	public static ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {
+	private static ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {
 		BufferedImage bufferedimage = ImageIO.read(imageStream);
 		int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), null, 0, bufferedimage.getWidth());
 		ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
@@ -57,6 +21,43 @@ public class MCDAClientWindowHelper {
 		}
 		bytebuffer.flip();
 		return bytebuffer;
+	}
+
+	public static void setWindowIcon() {
+		Util.EnumOS os = Util.getOSType();
+		if (os != Util.EnumOS.OSX) {
+			InputStream inputstream = null;
+			InputStream inputstream1 = null;
+			try {
+				inputstream = MCDAMod.class.getResourceAsStream("/assets/mcda/icons/icon_16x16.png");
+				inputstream1 = MCDAMod.class.getResourceAsStream("/assets/mcda/icons/icon_32x32.png");
+				if (inputstream != null && inputstream1 != null) {
+					Display.setIcon(new ByteBuffer[]{readImageToBuffer(inputstream), readImageToBuffer(inputstream1)});
+				}
+			} catch (Exception ioexception) {
+				MCDAMod.logger.error("Couldn't set icon", ioexception);
+			} finally {
+				IOUtils.closeQuietly(inputstream);
+				IOUtils.closeQuietly(inputstream1);
+			}
+			MCDAMod.logger.info("Window icon changed");
+		}
+	}
+
+	public static void setWindowTitle(String title) {
+		Runnable r = () -> {
+			try {
+				Display.setTitle("Hummel009's Minecraft 1.7.10");
+				MCDAMod.logger.info("Window title changed");
+			} catch (Exception e) {
+				MCDAMod.logger.catching(e);
+			}
+		};
+		if (Minecraft.getMinecraft().func_152345_ab()) {
+			r.run();
+		} else {
+			Minecraft.getMinecraft().func_152344_a(r);
+		}
 	}
 }
 

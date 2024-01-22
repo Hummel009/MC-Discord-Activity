@@ -8,7 +8,7 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
 public class MCDAEventListener {
-	public String lastServerName = "";
+	private String lastServerName = "";
 
 	@SubscribeEvent
 	public void onConnect(FMLNetworkEvent.ClientConnectedToServerEvent e) {
@@ -19,21 +19,12 @@ public class MCDAEventListener {
 				lastServerName = parts[1];
 			}
 			String key = "server." + lastServerName;
-			MCDAMod.getLogger().info(key);
-			lastServerName = MCDASettings.getProperties().getProperty(key.replace(':', '_'), lastServerName);
-			MCDARichPresence.getInstance().setState(MCDAClientState.ON_SERVER);
+			MCDAMod.logger.info(key);
+			lastServerName = MCDASettings.properties.getProperty(key.replace(':', '_'), lastServerName);
+			MCDARichPresence.INSTANCE.setState(MCDAClientState.ON_SERVER);
 			MCDAClientWindowHelper.setWindowTitle(lastServerName);
 		} catch (Exception ex) {
-			MCDAMod.getLogger().catching(ex);
-		}
-	}
-
-	@SubscribeEvent
-	public void onMenuOpen(GuiScreenEvent.InitGuiEvent e) {
-		if (e.gui instanceof GuiMainMenu) {
-			lastServerName = "";
-			MCDARichPresence.getInstance().setState(MCDAClientState.MENU);
-			MCDARichHelper.mainMenu(MCDARichPresence.getInstance());
+			MCDAMod.logger.catching(ex);
 		}
 	}
 
@@ -41,21 +32,30 @@ public class MCDAEventListener {
 	public void onDisconect(FMLNetworkEvent.ClientDisconnectionFromServerEvent e) {
 		Minecraft.getMinecraft().func_152344_a(() -> {
 			try {
-				MCDARichHelper.mainMenu(MCDARichPresence.getInstance());
+				MCDARichHelper.mainMenu(MCDARichPresence.INSTANCE);
 				MCDAClientWindowHelper.setWindowTitle(MCDASettings.category);
 			} catch (Exception ex) {
-				MCDAMod.getLogger().catching(ex);
+				MCDAMod.logger.catching(ex);
 			}
 		});
+	}
+
+	@SubscribeEvent
+	public void onMenuOpen(GuiScreenEvent.InitGuiEvent e) {
+		if (e.gui instanceof GuiMainMenu) {
+			lastServerName = "";
+			MCDARichPresence.INSTANCE.setState(MCDAClientState.MENU);
+			MCDARichHelper.mainMenu(MCDARichPresence.INSTANCE);
+		}
 	}
 
 	@SubscribeEvent
 	public void onWorldLoad(WorldEvent.Load e) {
 		Minecraft.getMinecraft().func_152344_a(() -> {
 			try {
-				MCDARichHelper.onWorldJoin(MCDARichPresence.getInstance(), lastServerName, Minecraft.getMinecraft().getSession().getUsername(), e.world.provider.dimensionId);
+				MCDARichHelper.onWorldJoin(MCDARichPresence.INSTANCE, lastServerName, Minecraft.getMinecraft().getSession().getUsername(), e.world.provider.dimensionId);
 			} catch (Exception ex) {
-				MCDAMod.getLogger().catching(ex);
+				MCDAMod.logger.catching(ex);
 			}
 		});
 	}
