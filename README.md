@@ -1,3 +1,14 @@
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=code_smells)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=sqale_rating)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=security_rating)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=bugs)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=vulnerabilities)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=duplicated_lines_density)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=reliability_rating)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=alert_status)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=sqale_index)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=ncloc)](https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity)
+
 MC Discord Activity - мод для Minecraft 1.7.10, который в активностях дискорда устанавливает кастомный текст с картинкой, а также меняет иконку и заголовок окна майнкрафта. Полезно для серверов.
 
 ## Общая информация
