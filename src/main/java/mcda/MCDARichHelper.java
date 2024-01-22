@@ -13,7 +13,7 @@ public class MCDARichHelper {
 	}
 
 	private static void mainMenu(MCDARichPresence presence, String playerName) {
-		presence.update(p -> p.setState(playerName + " -> " + "Главное меню"));
+		presence.update(p -> p.state = playerName + " -> " + "Главное меню");
 	}
 
 	public static void onRichUpdate(MCDARichPresence presence) {
@@ -23,8 +23,8 @@ public class MCDARichHelper {
 	}
 
 	public static void onWorldJoin(MCDARichPresence presence, String serverName, String playerName, int dimension) {
-		String worldName = MCDASettings.properties.getProperty("dimension_name." + dimension, "Неизвестный мир");
-		presence.update(p -> p.setState(playerName + " -> " + worldName));
+		String worldName = MCDASettings.getProperties().getProperty("dimension_name." + dimension, "Неизвестный мир");
+		presence.update(p -> p.state = playerName + " -> " + worldName);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -48,11 +48,11 @@ public class MCDARichHelper {
 					if (percents > maxPercents) {
 						maxPercents = percents;
 					}
-					p.setState("Запуск игры " + String.format("%2.2f", maxPercents * 100.0f) + '%');
+					p.state = "Запуск игры " + String.format("%2.2f", maxPercents * 100.0f) + '%';
 				});
 			}
 		} catch (Exception e) {
-			MCDAMod.logger.catching(e);
+			MCDAMod.getLogger().catching(e);
 		}
 	}
 }

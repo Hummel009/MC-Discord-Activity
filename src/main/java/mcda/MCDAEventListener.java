@@ -19,12 +19,12 @@ public class MCDAEventListener {
 				lastServerName = parts[1];
 			}
 			String key = "server." + lastServerName;
-			MCDAMod.logger.info(key);
-			lastServerName = MCDASettings.properties.getProperty(key.replace(':', '_'), lastServerName);
+			MCDAMod.getLogger().info(key);
+			lastServerName = MCDASettings.getProperties().getProperty(key.replace(':', '_'), lastServerName);
 			MCDARichPresence.INSTANCE.setState(MCDAClientState.ON_SERVER);
 			MCDAClientWindowHelper.setWindowTitle(lastServerName);
 		} catch (Exception ex) {
-			MCDAMod.logger.catching(ex);
+			MCDAMod.getLogger().catching(ex);
 		}
 	}
 
@@ -33,9 +33,9 @@ public class MCDAEventListener {
 		Minecraft.getMinecraft().func_152344_a(() -> {
 			try {
 				MCDARichHelper.mainMenu(MCDARichPresence.INSTANCE);
-				MCDAClientWindowHelper.setWindowTitle(MCDASettings.category);
+				MCDAClientWindowHelper.setWindowTitle(MCDASettings.getCategory());
 			} catch (Exception ex) {
-				MCDAMod.logger.catching(ex);
+				MCDAMod.getLogger().catching(ex);
 			}
 		});
 	}
@@ -55,7 +55,7 @@ public class MCDAEventListener {
 			try {
 				MCDARichHelper.onWorldJoin(MCDARichPresence.INSTANCE, lastServerName, Minecraft.getMinecraft().getSession().getUsername(), e.world.provider.dimensionId);
 			} catch (Exception ex) {
-				MCDAMod.logger.catching(ex);
+				MCDAMod.getLogger().catching(ex);
 			}
 		});
 	}

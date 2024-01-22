@@ -2,23 +2,21 @@ package club.minnced.discord.rpc;
 
 import com.sun.jna.Structure;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
+@SuppressWarnings({"WeakerAccess", "PublicField"})
+@Structure.FieldOrder({"userId", "username", "discriminator", "avatar"})
 public class DiscordUser extends Structure {
-	private static final List<String> FIELD_ORDER = Collections.unmodifiableList(Arrays.asList("userId", "username", "discriminator", "avatar"));
-	private String userId;
-	private String username;
-	private String discriminator;
-	private String avatar;
+	public String userId;
+	public String username;
+	public String discriminator;
+	public String avatar;
 
 	public DiscordUser() {
 		this("UTF-8");
 	}
 
-	private DiscordUser(String encoding) {
+	public DiscordUser(String encoding) {
 		setStringEncoding(encoding);
 	}
 
@@ -32,11 +30,6 @@ public class DiscordUser extends Structure {
 		}
 		DiscordUser that = (DiscordUser) o;
 		return Objects.equals(userId, that.userId) && Objects.equals(username, that.username) && Objects.equals(discriminator, that.discriminator) && Objects.equals(avatar, that.avatar);
-	}
-
-	@Override
-	protected List<String> getFieldOrder() {
-		return FIELD_ORDER;
 	}
 
 	@Override

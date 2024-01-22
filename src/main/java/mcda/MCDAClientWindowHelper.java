@@ -35,12 +35,12 @@ public class MCDAClientWindowHelper {
 					Display.setIcon(new ByteBuffer[]{readImageToBuffer(inputstream), readImageToBuffer(inputstream1)});
 				}
 			} catch (Exception ioexception) {
-				MCDAMod.logger.error("Couldn't set icon", ioexception);
+				MCDAMod.getLogger().error("Couldn't set icon", ioexception);
 			} finally {
 				IOUtils.closeQuietly(inputstream);
 				IOUtils.closeQuietly(inputstream1);
 			}
-			MCDAMod.logger.info("Window icon changed");
+			MCDAMod.getLogger().info("Window icon changed");
 		}
 	}
 
@@ -48,9 +48,9 @@ public class MCDAClientWindowHelper {
 		Runnable r = () -> {
 			try {
 				Display.setTitle("Hummel009's Minecraft 1.7.10");
-				MCDAMod.logger.info("Window title changed");
+				MCDAMod.getLogger().info("Window title changed");
 			} catch (Exception e) {
-				MCDAMod.logger.catching(e);
+				MCDAMod.getLogger().catching(e);
 			}
 		};
 		if (Minecraft.getMinecraft().func_152345_ab()) {

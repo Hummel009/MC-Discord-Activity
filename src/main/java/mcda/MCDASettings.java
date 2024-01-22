@@ -5,15 +5,37 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class MCDASettings {
-	public static Properties properties;
-
-	public static String discordAppId = "1147449520565801001";
-	public static String mainLabel = "UN-ION";
-	public static String mainLogo = "icon_arabic";
-	public static String mainLogoMin = "icon";
-	public static String category = "Minecraft";
-
+	private static Properties properties;
+	private static String discordAppId = "1147449520565801001";
+	private static String mainLabel = "UN-ION";
+	private static String mainLogo = "icon_arabic";
+	private static String mainLogoMin = "icon";
+	private static String category = "Minecraft";
 	private static String window = "Hummel009's Minecraft 1.7.10";
+
+	public static String getCategory() {
+		return category;
+	}
+
+	public static String getDiscordAppId() {
+		return discordAppId;
+	}
+
+	public static String getMainLabel() {
+		return mainLabel;
+	}
+
+	public static String getMainLogo() {
+		return mainLogo;
+	}
+
+	public static String getMainLogoMin() {
+		return mainLogoMin;
+	}
+
+	public static Properties getProperties() {
+		return properties;
+	}
 
 	public static void load() {
 		properties = read();
@@ -33,7 +55,7 @@ public class MCDASettings {
 			prop.load(is);
 			return prop;
 		} catch (IOException ex) {
-			MCDAMod.logger.catching(ex);
+			MCDAMod.getLogger().catching(ex);
 			return null;
 		}
 	}

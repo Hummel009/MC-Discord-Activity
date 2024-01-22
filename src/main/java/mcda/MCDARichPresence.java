@@ -32,26 +32,26 @@ public class MCDARichPresence {
 
 	public void init() {
 		try {
-			MCDAMod.logger.info("Creating Discord Rich Presence");
-			String applicationId = MCDASettings.discordAppId;
+			MCDAMod.getLogger().info("Creating Discord Rich Presence");
+			String applicationId = MCDASettings.getDiscordAppId();
 			DiscordEventHandlers handlers = new DiscordEventHandlers();
-			handlers.setReady(user -> MCDAMod.logger.info("Rich ready!"));
+			handlers.ready = user -> MCDAMod.getLogger().info("Rich ready!");
 			rpc.Discord_Initialize(applicationId, handlers, true, null);
-			presence.setStartTimestamp(System.currentTimeMillis() / 1000L);
-			presence.setLargeImageKey(MCDASettings.mainLogo);
-			presence.setSmallImageKey(MCDASettings.mainLogoMin);
-			presence.setLargeImageText(MCDASettings.mainLabel);
-			presence.setSmallImageText(MCDASettings.category);
+			presence.startTimestamp = System.currentTimeMillis() / 1000L;
+			presence.largeImageKey = MCDASettings.getMainLogo();
+			presence.smallImageKey = MCDASettings.getMainLogoMin();
+			presence.largeImageText = MCDASettings.getMainLabel();
+			presence.smallImageText = MCDASettings.getCategory();
 			rpc.Discord_UpdatePresence(presence);
 			state = MCDAClientState.LOADING;
-			MCDAMod.logger.info("Discord Rich Presence thread started");
+			MCDAMod.getLogger().info("Discord Rich Presence thread started");
 			ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 			executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
 			executor.scheduleAtFixedRate(() -> {
 				try {
 					MCDARichHelper.onRichUpdate(this);
 				} catch (Exception e) {
-					MCDAMod.logger.catching(e);
+					MCDAMod.getLogger().catching(e);
 				}
 				if (state != MCDAClientState.DISABLED) {
 					rpc.Discord_RunCallbacks();
@@ -59,7 +59,7 @@ public class MCDARichPresence {
 			}, 0L, 2L, TimeUnit.SECONDS);
 			Runtime.getRuntime().addShutdownHook(new MCDAThread(this, executor));
 		} catch (Exception e) {
-			MCDAMod.logger.catching(e);
+			MCDAMod.getLogger().catching(e);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class MCDARichPresence {
 		try {
 			rpc.Discord_UpdatePresence(presence);
 		} catch (Exception ex) {
-			MCDAMod.logger.catching(ex);
+			MCDAMod.getLogger().catching(ex);
 		}
 	}
 

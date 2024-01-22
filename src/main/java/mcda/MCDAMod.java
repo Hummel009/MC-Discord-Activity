@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 @Mod(modid = MCDAMod.MODID, name = MCDAMod.MODNAME, version = MCDAMod.VERSION, acceptableRemoteVersions = "*")
 public class MCDAMod {
 	@Mod.Instance
-	public static MCDAMod instance;
-	public static Logger logger;
+	private static MCDAMod instance;
+	private static Logger logger;
 
 	protected static final String MODID = "mcda";
 	protected static final String MODNAME = "MC Discord Activity";
@@ -21,8 +21,16 @@ public class MCDAMod {
 		logger = FMLLog.getLogger();
 		MCDASettings.load();
 		MCDAClientWindowHelper.setWindowIcon();
-		MCDAClientWindowHelper.setWindowTitle(MCDASettings.category);
+		MCDAClientWindowHelper.setWindowTitle(MCDASettings.getCategory());
 		MCDARichPresence.INSTANCE.init();
+	}
+
+	public static MCDAMod getInstance() {
+		return instance;
+	}
+
+	public static Logger getLogger() {
+		return logger;
 	}
 
 	@Mod.EventHandler
