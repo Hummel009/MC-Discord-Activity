@@ -12,6 +12,9 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 public class MCDAClientWindowHelper {
+	private MCDAClientWindowHelper() {
+	}
+
 	private static ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {
 		BufferedImage bufferedimage = ImageIO.read(imageStream);
 		int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), null, 0, bufferedimage.getWidth());

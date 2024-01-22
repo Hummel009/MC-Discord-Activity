@@ -8,6 +8,9 @@ import java.util.Iterator;
 public class MCDARichHelper {
 	private static float maxPercents;
 
+	private MCDARichHelper() {
+	}
+
 	public static void mainMenu(MCDARichPresence presence) {
 		mainMenu(presence, Minecraft.getMinecraft().getSession().getUsername());
 	}

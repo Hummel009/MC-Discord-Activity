@@ -13,6 +13,9 @@ public class MCDASettings {
 	private static String category = "Minecraft";
 	private static String window = "Hummel009's Minecraft 1.7.10";
 
+	private MCDASettings() {
+	}
+
 	public static String getCategory() {
 		return category;
 	}
