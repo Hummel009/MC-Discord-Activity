@@ -10,14 +10,9 @@ import java.util.function.Consumer;
 
 public class MCDARichPresence {
 	public static final MCDARichPresence INSTANCE = new MCDARichPresence();
-
-	private final DiscordRPC rpc = DiscordRPC.INSTANCE;
+	public static final DiscordRPC RPC = DiscordRPC.INSTANCE;
 	private final DiscordRichPresence presence = new DiscordRichPresence();
 	private MCDAClientState state = MCDAClientState.DISABLED;
-
-	public DiscordRPC getRpc() {
-		return rpc;
-	}
 
 	public MCDAClientState getState() {
 		return state;
@@ -36,13 +31,13 @@ public class MCDARichPresence {
 			String applicationId = MCDASettings.getDiscordAppId();
 			DiscordEventHandlers handlers = new DiscordEventHandlers();
 			handlers.ready = user -> MCDAMod.getLogger().info("Rich ready!");
-			rpc.Discord_Initialize(applicationId, handlers, true, null);
+			RPC.Discord_Initialize(applicationId, handlers, true, null);
 			presence.startTimestamp = System.currentTimeMillis() / 1000L;
 			presence.largeImageKey = MCDASettings.getMainLogo();
 			presence.smallImageKey = MCDASettings.getMainLogoMin();
 			presence.largeImageText = MCDASettings.getMainLabel();
 			presence.smallImageText = MCDASettings.getCategory();
-			rpc.Discord_UpdatePresence(presence);
+			RPC.Discord_UpdatePresence(presence);
 			state = MCDAClientState.LOADING;
 			MCDAMod.getLogger().info("Discord Rich Presence thread started");
 			ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
@@ -54,7 +49,7 @@ public class MCDARichPresence {
 					MCDAMod.getLogger().catching(e);
 				}
 				if (state != MCDAClientState.DISABLED) {
-					rpc.Discord_RunCallbacks();
+					RPC.Discord_RunCallbacks();
 				}
 			}, 0L, 2L, TimeUnit.SECONDS);
 			Runtime.getRuntime().addShutdownHook(new MCDAThread(this, executor));
@@ -72,7 +67,7 @@ public class MCDARichPresence {
 		} catch (Exception ignored) {
 		}
 		try {
-			rpc.Discord_UpdatePresence(presence);
+			RPC.Discord_UpdatePresence(presence);
 		} catch (Exception ex) {
 			MCDAMod.getLogger().catching(ex);
 		}

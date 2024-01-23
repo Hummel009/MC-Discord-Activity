@@ -16,8 +16,8 @@ class MCDAThread extends Thread {
 		if (mcdaRichPresence.getState() == MCDAClientState.DISABLED) {
 			return;
 		}
-		mcdaRichPresence.getRpc().Discord_ClearPresence();
-		mcdaRichPresence.getRpc().Discord_Shutdown();
+		MCDARichPresence.RPC.Discord_ClearPresence();
+		MCDARichPresence.RPC.Discord_Shutdown();
 		mcdaRichPresence.setState(MCDAClientState.DISABLED);
 	}
 

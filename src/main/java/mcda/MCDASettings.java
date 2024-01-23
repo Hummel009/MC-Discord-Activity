@@ -42,7 +42,7 @@ public class MCDASettings {
 
 	public static void load() {
 		properties = read();
-		if (properties != null) {
+		if (!properties.isEmpty()) {
 			discordAppId = properties.getProperty("app_id", discordAppId);
 			mainLogo = properties.getProperty("main_logo", mainLogo);
 			mainLogoMin = properties.getProperty("main_logo_min", mainLogoMin);
@@ -59,7 +59,7 @@ public class MCDASettings {
 			return prop;
 		} catch (IOException ex) {
 			MCDAMod.getLogger().catching(ex);
-			return null;
+			return new Properties();
 		}
 	}
 }

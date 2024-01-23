@@ -21,7 +21,7 @@ public class MCDAMod {
 		logger = FMLLog.getLogger();
 		MCDASettings.load();
 		MCDAClientWindowHelper.setWindowIcon();
-		MCDAClientWindowHelper.setWindowTitle(MCDASettings.getCategory());
+		MCDAClientWindowHelper.setWindowTitle();
 		MCDARichPresence.INSTANCE.init();
 	}
 

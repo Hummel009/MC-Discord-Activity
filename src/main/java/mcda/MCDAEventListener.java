@@ -8,21 +8,11 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.event.world.WorldEvent;
 
 public class MCDAEventListener {
-	private String lastServerName = "";
-
 	@SubscribeEvent
 	public void onConnect(FMLNetworkEvent.ClientConnectedToServerEvent e) {
 		try {
-			lastServerName = e.manager.getSocketAddress().toString();
-			String[] parts = lastServerName.split("/");
-			if (parts.length == 2) {
-				lastServerName = parts[1];
-			}
-			String key = "server." + lastServerName;
-			MCDAMod.getLogger().info(key);
-			lastServerName = MCDASettings.getProperties().getProperty(key.replace(':', '_'), lastServerName);
 			MCDARichPresence.INSTANCE.setState(MCDAClientState.ON_SERVER);
-			MCDAClientWindowHelper.setWindowTitle(lastServerName);
+			MCDAClientWindowHelper.setWindowTitle();
 		} catch (Exception ex) {
 			MCDAMod.getLogger().catching(ex);
 		}
@@ -33,7 +23,7 @@ public class MCDAEventListener {
 		Minecraft.getMinecraft().func_152344_a(() -> {
 			try {
 				MCDARichHelper.mainMenu(MCDARichPresence.INSTANCE);
-				MCDAClientWindowHelper.setWindowTitle(MCDASettings.getCategory());
+				MCDAClientWindowHelper.setWindowTitle();
 			} catch (Exception ex) {
 				MCDAMod.getLogger().catching(ex);
 			}
@@ -43,7 +33,6 @@ public class MCDAEventListener {
 	@SubscribeEvent
 	public void onMenuOpen(GuiScreenEvent.InitGuiEvent e) {
 		if (e.gui instanceof GuiMainMenu) {
-			lastServerName = "";
 			MCDARichPresence.INSTANCE.setState(MCDAClientState.MENU);
 			MCDARichHelper.mainMenu(MCDARichPresence.INSTANCE);
 		}
@@ -53,7 +42,7 @@ public class MCDAEventListener {
 	public void onWorldLoad(WorldEvent.Load e) {
 		Minecraft.getMinecraft().func_152344_a(() -> {
 			try {
-				MCDARichHelper.onWorldJoin(MCDARichPresence.INSTANCE, lastServerName, Minecraft.getMinecraft().getSession().getUsername(), e.world.provider.dimensionId);
+				MCDARichHelper.onWorldJoin(MCDARichPresence.INSTANCE, Minecraft.getMinecraft().getSession().getUsername(), e.world.provider.dimensionId);
 			} catch (Exception ex) {
 				MCDAMod.getLogger().catching(ex);
 			}

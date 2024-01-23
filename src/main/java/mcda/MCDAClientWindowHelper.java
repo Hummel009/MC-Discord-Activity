@@ -47,7 +47,7 @@ public class MCDAClientWindowHelper {
 		}
 	}
 
-	public static void setWindowTitle(String title) {
+	public static void setWindowTitle() {
 		Runnable r = () -> {
 			try {
 				Display.setTitle("Hummel009's Minecraft 1.7.10");

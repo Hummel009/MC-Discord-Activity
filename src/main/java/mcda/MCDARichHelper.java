@@ -25,7 +25,7 @@ public class MCDARichHelper {
 		}
 	}
 
-	public static void onWorldJoin(MCDARichPresence presence, String serverName, String playerName, int dimension) {
+	public static void onWorldJoin(MCDARichPresence presence, String playerName, int dimension) {
 		String worldName = MCDASettings.getProperties().getProperty("dimension_name." + dimension, "Неизвестный мир");
 		presence.update(p -> p.state = playerName + " -> " + worldName);
 	}
@@ -33,9 +33,8 @@ public class MCDARichHelper {
 	@SuppressWarnings("deprecation")
 	private static void updateLoading(MCDARichPresence presence) {
 		try {
-			ProgressManager.ProgressBar progressBar;
 			Iterator<ProgressManager.ProgressBar> pit = ProgressManager.barIterator();
-			ProgressManager.ProgressBar progressBar2 = progressBar = pit.hasNext() ? pit.next() : null;
+			ProgressManager.ProgressBar progressBar = pit.hasNext() ? pit.next() : null;
 			if (progressBar != null) {
 				presence.update(p -> {
 					float percents0 = 1.0f / progressBar.getSteps();
