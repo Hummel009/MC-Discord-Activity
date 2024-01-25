@@ -37,22 +37,41 @@ MC Discord Activity - мод для Minecraft 1.7.10, который в акти
 <!----------------------------------------------------------------------------->
 
 [code_smells_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=code_smells
+
 [code_smells_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity
+
 [maintainability_rating_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=sqale_rating
+
 [maintainability_rating_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity
+
 [security_rating_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=security_rating
+
 [security_rating_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity
+
 [bugs_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=bugs
+
 [bugs_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity
+
 [vulnerabilities_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=vulnerabilities
+
 [vulnerabilities_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity
+
 [duplicated_lines_density_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=duplicated_lines_density
+
 [duplicated_lines_density_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity
+
 [reliability_rating_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=reliability_rating
+
 [reliability_rating_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity
+
 [quality_gate_status_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=alert_status
+
 [quality_gate_status_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity
+
 [technical_debt_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=sqale_index
+
 [technical_debt_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity
+
 [lines_of_code_badge]: https://sonarcloud.io/api/project_badges/measure?project=Hummel009_MC-Discord-Activity&metric=ncloc
+
 [lines_of_code_link]: https://sonarcloud.io/summary/overall?id=Hummel009_MC-Discord-Activity

@@ -15,7 +15,7 @@ public class MCDAMod {
 
 	protected static final String MODID = "mcda";
 	protected static final String MODNAME = "MC Discord Activity";
-	protected static final String VERSION = "23.09.02";
+	protected static final String VERSION = "24.02.29";
 
 	public MCDAMod() {
 		logger = FMLLog.getLogger();
