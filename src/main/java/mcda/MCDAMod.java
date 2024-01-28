@@ -7,15 +7,11 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = MCDAMod.MODID, name = MCDAMod.MODNAME, version = MCDAMod.VERSION, acceptableRemoteVersions = "*")
+@Mod(modid = "mcda", acceptableRemoteVersions = "*", useMetadata = true)
 public class MCDAMod {
 	@Mod.Instance
 	private static MCDAMod instance;
 	private static Logger logger;
-
-	protected static final String MODID = "mcda";
-	protected static final String MODNAME = "MC Discord Activity";
-	protected static final String VERSION = "24.02.29";
 
 	public MCDAMod() {
 		logger = FMLLog.getLogger();
