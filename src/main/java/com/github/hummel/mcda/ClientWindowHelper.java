@@ -1,4 +1,4 @@
-package mcda;
+package com.github.hummel.mcda;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-public class MCDAClientWindowHelper {
-	private MCDAClientWindowHelper() {
+public class ClientWindowHelper {
+	private ClientWindowHelper() {
 	}
 
 	private static ByteBuffer readImageToBuffer(InputStream imageStream) throws IOException {
@@ -32,18 +32,18 @@ public class MCDAClientWindowHelper {
 			InputStream inputstream = null;
 			InputStream inputstream1 = null;
 			try {
-				inputstream = MCDAMod.class.getResourceAsStream("/assets/mcda/icons/icon_16x16.png");
-				inputstream1 = MCDAMod.class.getResourceAsStream("/assets/mcda/icons/icon_32x32.png");
+				inputstream = Main.class.getResourceAsStream("/assets/mcda/icons/icon_16x16.png");
+				inputstream1 = Main.class.getResourceAsStream("/assets/mcda/icons/icon_32x32.png");
 				if (inputstream != null && inputstream1 != null) {
 					Display.setIcon(new ByteBuffer[]{readImageToBuffer(inputstream), readImageToBuffer(inputstream1)});
 				}
 			} catch (Exception ioexception) {
-				MCDAMod.getLogger().error("Couldn't set icon", ioexception);
+				Main.getLogger().error("Couldn't set icon", ioexception);
 			} finally {
 				IOUtils.closeQuietly(inputstream);
 				IOUtils.closeQuietly(inputstream1);
 			}
-			MCDAMod.getLogger().info("Window icon changed");
+			Main.getLogger().info("Window icon changed");
 		}
 	}
 
@@ -51,9 +51,9 @@ public class MCDAClientWindowHelper {
 		Runnable r = () -> {
 			try {
 				Display.setTitle("Hummel009's Minecraft 1.7.10");
-				MCDAMod.getLogger().info("Window title changed");
+				Main.getLogger().info("Window title changed");
 			} catch (Exception e) {
-				MCDAMod.getLogger().catching(e);
+				Main.getLogger().catching(e);
 			}
 		};
 		if (Minecraft.getMinecraft().func_152345_ab()) {

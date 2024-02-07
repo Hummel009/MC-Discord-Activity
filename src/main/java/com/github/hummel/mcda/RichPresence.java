@@ -1,4 +1,4 @@
-package mcda;
+package com.github.hummel.mcda;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
@@ -8,18 +8,21 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-public class MCDARichPresence {
-	public static final MCDARichPresence INSTANCE = new MCDARichPresence();
+public class RichPresence {
+	public static final RichPresence INSTANCE = new RichPresence();
 	public static final DiscordRPC RPC = DiscordRPC.INSTANCE;
 	private final DiscordRichPresence presence = new DiscordRichPresence();
-	private MCDAClientState state = MCDAClientState.DISABLED;
+	private ClientState state = ClientState.DISABLED;
 
-	public MCDAClientState getState() {
+	private RichPresence() {
+	}
+
+	public ClientState getState() {
 		return state;
 	}
 
-	public void setState(MCDAClientState state) {
-		if (state == MCDAClientState.DISABLED) {
+	public void setState(ClientState state) {
+		if (state == ClientState.DISABLED) {
 			return;
 		}
 		this.state = state;
@@ -27,39 +30,39 @@ public class MCDARichPresence {
 
 	public void init() {
 		try {
-			MCDAMod.getLogger().info("Creating Discord Rich Presence");
-			String applicationId = MCDASettings.getDiscordAppId();
+			Main.getLogger().info("Creating Discord Rich Presence");
+			String applicationId = Settings.getDiscordAppId();
 			DiscordEventHandlers handlers = new DiscordEventHandlers();
-			handlers.ready = user -> MCDAMod.getLogger().info("Rich ready!");
+			handlers.ready = user -> Main.getLogger().info("Rich ready!");
 			RPC.Discord_Initialize(applicationId, handlers, true, null);
 			presence.startTimestamp = System.currentTimeMillis() / 1000L;
-			presence.largeImageKey = MCDASettings.getMainLogo();
-			presence.smallImageKey = MCDASettings.getMainLogoMin();
-			presence.largeImageText = MCDASettings.getMainLabel();
-			presence.smallImageText = MCDASettings.getCategory();
+			presence.largeImageKey = Settings.getMainLogo();
+			presence.smallImageKey = Settings.getMainLogoMin();
+			presence.largeImageText = Settings.getMainLabel();
+			presence.smallImageText = Settings.getCategory();
 			RPC.Discord_UpdatePresence(presence);
-			state = MCDAClientState.LOADING;
-			MCDAMod.getLogger().info("Discord Rich Presence thread started");
+			state = ClientState.LOADING;
+			Main.getLogger().info("Discord Rich Presence thread started");
 			ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 			executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
 			executor.scheduleAtFixedRate(() -> {
 				try {
-					MCDARichHelper.onRichUpdate(this);
+					RichPresenceHelper.onRichUpdate(this);
 				} catch (Exception e) {
-					MCDAMod.getLogger().catching(e);
+					Main.getLogger().catching(e);
 				}
-				if (state != MCDAClientState.DISABLED) {
+				if (state != ClientState.DISABLED) {
 					RPC.Discord_RunCallbacks();
 				}
 			}, 0L, 2L, TimeUnit.SECONDS);
-			Runtime.getRuntime().addShutdownHook(new MCDAThread(this, executor));
+			Runtime.getRuntime().addShutdownHook(new ShutdownThread(this, executor));
 		} catch (Exception e) {
-			MCDAMod.getLogger().catching(e);
+			Main.getLogger().catching(e);
 		}
 	}
 
 	public void update(Consumer<DiscordRichPresence> consumer) {
-		if (state == MCDAClientState.DISABLED) {
+		if (state == ClientState.DISABLED) {
 			return;
 		}
 		try {
@@ -69,7 +72,7 @@ public class MCDARichPresence {
 		try {
 			RPC.Discord_UpdatePresence(presence);
 		} catch (Exception ex) {
-			MCDAMod.getLogger().catching(ex);
+			Main.getLogger().catching(ex);
 		}
 	}
 

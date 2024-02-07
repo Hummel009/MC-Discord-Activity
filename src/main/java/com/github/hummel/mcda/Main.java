@@ -1,4 +1,4 @@
-package mcda;
+package com.github.hummel.mcda;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
@@ -7,21 +7,21 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = "mcda", acceptableRemoteVersions = "*", useMetadata = true)
-public class MCDAMod {
+@Mod(modid = "com/github/hummel/mcda", acceptableRemoteVersions = "*", useMetadata = true)
+public class Main {
 	@Mod.Instance
-	private static MCDAMod instance;
+	private static Main instance;
 	private static Logger logger;
 
-	public MCDAMod() {
+	public Main() {
 		logger = FMLLog.getLogger();
-		MCDASettings.load();
-		MCDAClientWindowHelper.setWindowIcon();
-		MCDAClientWindowHelper.setWindowTitle();
-		MCDARichPresence.INSTANCE.init();
+		Settings.load();
+		ClientWindowHelper.setWindowIcon();
+		ClientWindowHelper.setWindowTitle();
+		RichPresence.INSTANCE.init();
 	}
 
-	public static MCDAMod getInstance() {
+	public static Main getInstance() {
 		return instance;
 	}
 
@@ -32,9 +32,9 @@ public class MCDAMod {
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent e) {
 		logger = e.getModLog();
-		MCDAEventListener eventListener = new MCDAEventListener();
-		MinecraftForge.EVENT_BUS.register(eventListener);
-		FMLCommonHandler.instance().bus().register(eventListener);
+		EventHandler eventHandler = new EventHandler();
+		MinecraftForge.EVENT_BUS.register(eventHandler);
+		FMLCommonHandler.instance().bus().register(eventHandler);
 	}
 }
 

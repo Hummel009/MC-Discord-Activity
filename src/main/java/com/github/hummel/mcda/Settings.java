@@ -1,10 +1,10 @@
-package mcda;
+package com.github.hummel.mcda;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class MCDASettings {
+public class Settings {
 	private static Properties properties;
 	private static String discordAppId = "1147449520565801001";
 	private static String mainLabel = "UN-ION";
@@ -13,7 +13,7 @@ public class MCDASettings {
 	private static String category = "Minecraft";
 	private static String window = "Hummel009's Minecraft 1.7.10";
 
-	private MCDASettings() {
+	private Settings() {
 	}
 
 	public static String getCategory() {
@@ -53,12 +53,12 @@ public class MCDASettings {
 	}
 
 	private static Properties read() {
-		try (InputStream is = MCDAMod.class.getResourceAsStream("/config.properties")) {
+		try (InputStream is = Main.class.getResourceAsStream("/config.properties")) {
 			Properties prop = new Properties();
 			prop.load(is);
 			return prop;
 		} catch (IOException ex) {
-			MCDAMod.getLogger().catching(ex);
+			Main.getLogger().catching(ex);
 			return new Properties();
 		}
 	}

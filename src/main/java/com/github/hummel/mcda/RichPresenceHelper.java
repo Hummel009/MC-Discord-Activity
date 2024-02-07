@@ -1,37 +1,37 @@
-package mcda;
+package com.github.hummel.mcda;
 
 import cpw.mods.fml.common.ProgressManager;
 import net.minecraft.client.Minecraft;
 
 import java.util.Iterator;
 
-public class MCDARichHelper {
+public class RichPresenceHelper {
 	private static float maxPercents;
 
-	private MCDARichHelper() {
+	private RichPresenceHelper() {
 	}
 
-	public static void mainMenu(MCDARichPresence presence) {
+	public static void mainMenu(RichPresence presence) {
 		mainMenu(presence, Minecraft.getMinecraft().getSession().getUsername());
 	}
 
-	private static void mainMenu(MCDARichPresence presence, String playerName) {
+	private static void mainMenu(RichPresence presence, String playerName) {
 		presence.update(p -> p.state = playerName + " -> " + "Главное меню");
 	}
 
-	public static void onRichUpdate(MCDARichPresence presence) {
-		if (presence.getState() == MCDAClientState.LOADING) {
+	public static void onRichUpdate(RichPresence presence) {
+		if (presence.getState() == ClientState.LOADING) {
 			updateLoading(presence);
 		}
 	}
 
-	public static void onWorldJoin(MCDARichPresence presence, String playerName, int dimension) {
-		String worldName = MCDASettings.getProperties().getProperty("dimension_name." + dimension, "Неизвестный мир");
+	public static void onWorldJoin(RichPresence presence, String playerName, int dimension) {
+		String worldName = Settings.getProperties().getProperty("dimension_name." + dimension, "Неизвестный мир");
 		presence.update(p -> p.state = playerName + " -> " + worldName);
 	}
 
 	@SuppressWarnings("deprecation")
-	private static void updateLoading(MCDARichPresence presence) {
+	private static void updateLoading(RichPresence presence) {
 		try {
 			Iterator<ProgressManager.ProgressBar> pit = ProgressManager.barIterator();
 			ProgressManager.ProgressBar progressBar = pit.hasNext() ? pit.next() : null;
@@ -54,7 +54,7 @@ public class MCDARichHelper {
 				});
 			}
 		} catch (Exception e) {
-			MCDAMod.getLogger().catching(e);
+			Main.getLogger().catching(e);
 		}
 	}
 }
