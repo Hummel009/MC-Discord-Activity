@@ -7,7 +7,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = "com/github/hummel/mcda", acceptableRemoteVersions = "*", useMetadata = true)
+@Mod(modid = "mcda", acceptableRemoteVersions = "*", useMetadata = true)
 public class Main {
 	@Mod.Instance
 	private static Main instance;
