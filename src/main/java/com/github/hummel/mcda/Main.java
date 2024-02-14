@@ -13,22 +13,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = "mcda", acceptableRemoteVersions = "*", useMetadata = true)
 public class Main {
-	@Mod.Instance
-	private static Main instance;
-
 	public Main() {
-		Settings.load();
-		ClientWindowHelper.setWindowIcon();
-		ClientWindowHelper.setWindowTitle();
-		RichPresence.INSTANCE.init();
-	}
-
-	public static Main getInstance() {
-		return instance;
-	}
-
-	@Mod.EventHandler
-	public void preinit(FMLPreInitializationEvent event) {
 		EventBus fmlEventBus = FMLCommonHandler.instance().bus();
 		FmlEventHandler fmlEventHandler = new FmlEventHandler();
 		fmlEventBus.register(fmlEventHandler);
@@ -37,5 +22,14 @@ public class Main {
 		ForgeEventHandler forgeEventHandler = new ForgeEventHandler();
 		forgeEventBus.register(forgeEventHandler);
 	}
-}
 
+	@Mod.EventHandler
+	public void preInit(FMLPreInitializationEvent event) {
+		Settings.preInit();
+
+		ClientWindowHelper.setWindowIcon();
+		ClientWindowHelper.setWindowTitle();
+
+		RichPresence.INSTANCE.preInit();
+	}
+}

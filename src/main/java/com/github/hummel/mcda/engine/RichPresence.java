@@ -28,7 +28,7 @@ public class RichPresence {
 		this.state = state;
 	}
 
-	public void init() {
+	public void preInit() {
 		try {
 			String applicationId = Settings.getDiscordAppId();
 			DiscordEventHandlers handlers = new DiscordEventHandlers();

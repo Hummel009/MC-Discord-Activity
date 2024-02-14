@@ -42,7 +42,7 @@ public class Settings {
 		return properties;
 	}
 
-	public static void load() {
+	public static void preInit() {
 		properties = read();
 		if (!properties.isEmpty()) {
 			discordAppId = properties.getProperty("app_id", discordAppId);
