@@ -1,5 +1,6 @@
-package com.github.hummel.mcda;
+package com.github.hummel.mcda.engine;
 
+import com.github.hummel.mcda.Main;
 import cpw.mods.fml.common.ProgressManager;
 import net.minecraft.client.Minecraft;
 
@@ -54,7 +55,7 @@ public class RichPresenceHelper {
 				});
 			}
 		} catch (Exception e) {
-			Main.getLogger().catching(e);
+			e.printStackTrace();
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package com.github.hummel.mcda;
+package com.github.hummel.mcda.engine;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 

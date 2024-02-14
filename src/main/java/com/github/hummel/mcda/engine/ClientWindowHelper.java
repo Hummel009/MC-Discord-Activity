@@ -1,5 +1,6 @@
-package com.github.hummel.mcda;
+package com.github.hummel.mcda.engine;
 
+import com.github.hummel.mcda.Main;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import org.apache.commons.io.IOUtils;
@@ -37,13 +38,12 @@ public class ClientWindowHelper {
 				if (inputstream != null && inputstream1 != null) {
 					Display.setIcon(new ByteBuffer[]{readImageToBuffer(inputstream), readImageToBuffer(inputstream1)});
 				}
-			} catch (Exception ioexception) {
-				Main.getLogger().error("Couldn't set icon", ioexception);
+			} catch (Exception e) {
+				e.printStackTrace();
 			} finally {
 				IOUtils.closeQuietly(inputstream);
 				IOUtils.closeQuietly(inputstream1);
 			}
-			Main.getLogger().info("Window icon changed");
 		}
 	}
 
@@ -51,9 +51,8 @@ public class ClientWindowHelper {
 		Runnable r = () -> {
 			try {
 				Display.setTitle("Hummel009's Minecraft 1.7.10");
-				Main.getLogger().info("Window title changed");
 			} catch (Exception e) {
-				Main.getLogger().catching(e);
+				e.printStackTrace();
 			}
 		};
 		if (Minecraft.getMinecraft().func_152345_ab()) {

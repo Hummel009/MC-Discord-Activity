@@ -1,21 +1,22 @@
 package com.github.hummel.mcda;
 
+import com.github.hummel.mcda.engine.ClientWindowHelper;
+import com.github.hummel.mcda.engine.RichPresence;
+import com.github.hummel.mcda.engine.Settings;
+import com.github.hummel.mcda.handler.FmlEventHandler;
+import com.github.hummel.mcda.handler.ForgeEventHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.EventBus;
 import net.minecraftforge.common.MinecraftForge;
-import org.apache.logging.log4j.Logger;
 
 @Mod(modid = "mcda", acceptableRemoteVersions = "*", useMetadata = true)
 public class Main {
 	@Mod.Instance
 	private static Main instance;
-	private static Logger logger;
 
 	public Main() {
-		logger = FMLLog.getLogger();
 		Settings.load();
 		ClientWindowHelper.setWindowIcon();
 		ClientWindowHelper.setWindowTitle();
@@ -26,18 +27,15 @@ public class Main {
 		return instance;
 	}
 
-	public static Logger getLogger() {
-		return logger;
-	}
-
 	@Mod.EventHandler
-	public void preinit(FMLPreInitializationEvent e) {
-		logger = e.getModLog();
+	public void preinit(FMLPreInitializationEvent event) {
 		EventBus fmlEventBus = FMLCommonHandler.instance().bus();
+		FmlEventHandler fmlEventHandler = new FmlEventHandler();
+		fmlEventBus.register(fmlEventHandler);
+
 		EventBus forgeEventBus = MinecraftForge.EVENT_BUS;
-		EventHandler eventHandler = new EventHandler();
-		forgeEventBus.register(eventHandler);
-		fmlEventBus.register(eventHandler);
+		ForgeEventHandler forgeEventHandler = new ForgeEventHandler();
+		forgeEventBus.register(forgeEventHandler);
 	}
 }
 

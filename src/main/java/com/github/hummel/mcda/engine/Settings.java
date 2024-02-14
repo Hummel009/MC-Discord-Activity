@@ -1,4 +1,6 @@
-package com.github.hummel.mcda;
+package com.github.hummel.mcda.engine;
+
+import com.github.hummel.mcda.Main;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,8 +59,8 @@ public class Settings {
 			Properties prop = new Properties();
 			prop.load(is);
 			return prop;
-		} catch (IOException ex) {
-			Main.getLogger().catching(ex);
+		} catch (IOException e) {
+			e.printStackTrace();
 			return new Properties();
 		}
 	}

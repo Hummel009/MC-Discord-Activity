@@ -1,4 +1,4 @@
-package com.github.hummel.mcda;
+package com.github.hummel.mcda.engine;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
@@ -30,10 +30,9 @@ public class RichPresence {
 
 	public void init() {
 		try {
-			Main.getLogger().info("Creating Discord Rich Presence");
 			String applicationId = Settings.getDiscordAppId();
 			DiscordEventHandlers handlers = new DiscordEventHandlers();
-			handlers.ready = user -> Main.getLogger().info("Rich ready!");
+			handlers.ready = user -> System.out.println("Rich ready!");
 			RPC.Discord_Initialize(applicationId, handlers, true, null);
 			presence.startTimestamp = System.currentTimeMillis() / 1000L;
 			presence.largeImageKey = Settings.getMainLogo();
@@ -42,14 +41,13 @@ public class RichPresence {
 			presence.smallImageText = Settings.getCategory();
 			RPC.Discord_UpdatePresence(presence);
 			state = ClientState.LOADING;
-			Main.getLogger().info("Discord Rich Presence thread started");
 			ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
 			executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
 			executor.scheduleAtFixedRate(() -> {
 				try {
 					RichPresenceHelper.onRichUpdate(this);
 				} catch (Exception e) {
-					Main.getLogger().catching(e);
+					e.printStackTrace();
 				}
 				if (state != ClientState.DISABLED) {
 					RPC.Discord_RunCallbacks();
@@ -57,7 +55,7 @@ public class RichPresence {
 			}, 0L, 2L, TimeUnit.SECONDS);
 			Runtime.getRuntime().addShutdownHook(new ShutdownThread(this, executor));
 		} catch (Exception e) {
-			Main.getLogger().catching(e);
+			e.printStackTrace();
 		}
 	}
 
@@ -71,8 +69,8 @@ public class RichPresence {
 		}
 		try {
 			RPC.Discord_UpdatePresence(presence);
-		} catch (Exception ex) {
-			Main.getLogger().catching(ex);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
