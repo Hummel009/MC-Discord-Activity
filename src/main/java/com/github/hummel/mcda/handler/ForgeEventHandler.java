@@ -4,6 +4,8 @@ import com.github.hummel.mcda.engine.ClientState;
 import com.github.hummel.mcda.engine.RichPresence;
 import com.github.hummel.mcda.engine.RichPresenceHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -11,6 +13,7 @@ import net.minecraftforge.event.world.WorldEvent;
 
 public class ForgeEventHandler {
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
 	public void onMenuOpen(GuiScreenEvent.InitGuiEvent event) {
 		if (event.gui instanceof GuiMainMenu) {
 			RichPresence.INSTANCE.setState(ClientState.MENU);
@@ -29,4 +32,3 @@ public class ForgeEventHandler {
 		});
 	}
 }
-
