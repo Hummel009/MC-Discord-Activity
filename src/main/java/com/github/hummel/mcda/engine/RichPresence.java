@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 public class RichPresence {
 	public static final RichPresence INSTANCE = new RichPresence();
 	public static final DiscordRPC RPC = DiscordRPC.INSTANCE;
+
 	private final DiscordRichPresence presence = new DiscordRichPresence();
 	private ClientState state = ClientState.DISABLED;
 
@@ -53,7 +54,7 @@ public class RichPresence {
 					RPC.Discord_RunCallbacks();
 				}
 			}, 0L, 2L, TimeUnit.SECONDS);
-			Runtime.getRuntime().addShutdownHook(new ShutdownThread(this, executor));
+			Runtime.getRuntime().addShutdownHook(new Thread(new ShutdownRunnable(this, executor), "Discord Rich Presence Shutdown"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

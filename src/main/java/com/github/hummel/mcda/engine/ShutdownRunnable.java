@@ -2,12 +2,12 @@ package com.github.hummel.mcda.engine;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
-class ShutdownThread extends Thread {
+
+class ShutdownRunnable implements Runnable {
 	private final RichPresence richPresence;
 	private final ScheduledThreadPoolExecutor executor;
 
-	ShutdownThread(RichPresence richPresence, ScheduledThreadPoolExecutor executor) {
-		super("Discord Rich Presence Shutdown");
+	ShutdownRunnable(RichPresence richPresence, ScheduledThreadPoolExecutor executor) {
 		this.richPresence = richPresence;
 		this.executor = executor;
 	}

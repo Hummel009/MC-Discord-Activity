@@ -5,7 +5,7 @@ import com.sun.jna.Structure;
 
 import java.util.Objects;
 
-@SuppressWarnings({"WeakerAccess", "PublicField"})
+@SuppressWarnings("all")
 @Structure.FieldOrder({"ready", "disconnected", "errored", "joinGame", "spectateGame", "joinRequest"})
 public class DiscordEventHandlers extends Structure {
 	public OnStatus disconnected;

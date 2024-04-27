@@ -8,6 +8,7 @@ import java.util.Properties;
 
 public class Settings {
 	private static Properties properties;
+
 	private static String discordAppId = "1147449520565801001";
 	private static String mainLabel = "UN-ION";
 	private static String mainLogo = "icon_arabic";

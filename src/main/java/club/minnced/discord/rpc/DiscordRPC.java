@@ -6,6 +6,7 @@ import com.sun.jna.Native;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@SuppressWarnings("all")
 public interface DiscordRPC extends Library {
 	DiscordRPC INSTANCE = Native.load("discord-rpc", DiscordRPC.class);
 	int DISCORD_REPLY_NO = 0;

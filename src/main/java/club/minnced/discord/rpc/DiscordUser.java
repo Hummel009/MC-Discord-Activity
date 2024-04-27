@@ -4,7 +4,7 @@ import com.sun.jna.Structure;
 
 import java.util.Objects;
 
-@SuppressWarnings({"WeakerAccess", "PublicField"})
+@SuppressWarnings("all")
 @Structure.FieldOrder({"userId", "username", "discriminator", "avatar"})
 public class DiscordUser extends Structure {
 	public String userId;
