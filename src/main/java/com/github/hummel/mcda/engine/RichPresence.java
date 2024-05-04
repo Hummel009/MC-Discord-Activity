@@ -3,6 +3,8 @@ package com.github.hummel.mcda.engine;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import cpw.mods.fml.common.FMLLog;
+import org.apache.logging.log4j.Level;
 
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -33,7 +35,7 @@ public class RichPresence {
 		try {
 			String applicationId = Settings.getDiscordAppId();
 			DiscordEventHandlers handlers = new DiscordEventHandlers();
-			handlers.ready = user -> System.out.println("Rich ready!");
+			handlers.ready = user -> FMLLog.log(Level.DEBUG, "Rich ready!");
 			RPC.Discord_Initialize(applicationId, handlers, true, null);
 			presence.startTimestamp = System.currentTimeMillis() / 1000L;
 			presence.largeImageKey = Settings.getMainLogo();
