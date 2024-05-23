@@ -12,8 +12,8 @@ val embed: Configuration by configurations.creating
 
 dependencies {
 	embed("net.java.dev.jna:jna:5.14.0")
-	implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 	implementation("net.java.dev.jna:jna:5.14.0")
+	implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }
 
 java {
