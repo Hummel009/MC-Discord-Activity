@@ -2,7 +2,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 plugins {
-	id("com.gtnewhorizons.retrofuturagradle") version "1.4.0"
+	id("com.gtnewhorizons.retrofuturagradle") version "latest.release"
 }
 
 group = "com.github.hummel"
@@ -11,8 +11,8 @@ version = LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"))
 val embed: Configuration by configurations.creating
 
 dependencies {
-	embed("net.java.dev.jna:jna:5.14.0")
-	implementation("net.java.dev.jna:jna:5.14.0")
+	embed("net.java.dev.jna:jna:latest-release")
+	implementation("net.java.dev.jna:jna:latest-release")
 	implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 }
 
