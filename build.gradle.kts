@@ -13,6 +13,7 @@ val embed: Configuration by configurations.creating
 dependencies {
 	embed("net.java.dev.jna:jna:latest.release")
 	implementation("net.java.dev.jna:jna:latest.release")
+	implementation(rfg.deobf(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar")))))
 }
 
 java {
